@@ -12,6 +12,8 @@ function Admin() {
 
   const categories = ['Veg', 'Fruit', 'Preserves', 'Garden', 'Other']
   const types = ['Free', 'Swap', 'Wanted', '£']
+  const [expiryDays, setExpiryDays] = useState('30')
+
 
   async function handleSubmit() {
     if (!title || !location || !description) {
@@ -21,9 +23,19 @@ function Admin() {
 
     setLoading(true)
 
+   const expiryDate = new Date()
+    expiryDate.setDate(expiryDate.getDate() + parseInt(expiryDays))
+
     const { error } = await supabase
       .from('listings')
-      .insert([{ title, location, category, type, description }])
+      .insert([{
+        title,
+        location,
+        category,
+        type,
+        description,
+        expires_at: expiryDate.toISOString()
+      }])
 
     if (error) {
       console.error('Error adding listing:', error)
@@ -187,6 +199,32 @@ function Admin() {
           }}
         />
       </div>
+
+      <div style={{ marginBottom: '14px' }}>
+  <label style={{ fontSize: '13px', color: '#444', display: 'block', marginBottom: '6px' }}>
+    How long should this listing stay up?
+  </label>
+  <select
+    value={expiryDays}
+    onChange={(e) => setExpiryDays(e.target.value)}
+    style={{
+      width: '100%',
+      padding: '10px 14px',
+      borderRadius: '8px',
+      border: '1px solid #ddd',
+      fontSize: '14px',
+      boxSizing: 'border-box' as const,
+      outline: 'none',
+      backgroundColor: 'white',
+      color: '#333'
+    }}
+  >
+    <option value="7">7 days — fresh produce</option>
+    <option value="14">14 days — general food</option>
+    <option value="30">30 days — garden items</option>
+    <option value="90">90 days — tools and equipment</option>
+  </select>
+</div>
 
       <button
         onClick={handleSubmit}
