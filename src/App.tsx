@@ -160,7 +160,7 @@ function App() {
                   marginBottom: '10px',
                   paddingTop: '12px'
                 }}>
-                  Bristol Larder is a free community platform built by a local Bristolian for BS6 and BS7 growers, makers and neighbours.
+                  Bristol Larder is a free community platform built by a local BS7 resident for BS6 and BS7 growers, makers and neighbours.
                 </p>
                 <p style={{
                   fontSize: '13px',
