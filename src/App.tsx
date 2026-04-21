@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import ListingCard from './ListingCard'
 import Admin from './Admin'
 import { supabase } from './supabase'
+import './App.css'
 
 type Listing = {
   id: number
@@ -39,8 +40,8 @@ function App() {
     setLoading(false)
   }
 
-if (window.location.search === '?admin=true') {
-   return <Admin />
+  if (window.location.search === '?admin=true') {
+    return <Admin />
   }
 
   const filteredListings = listings
@@ -52,101 +53,59 @@ if (window.location.search === '?admin=true') {
     )
 
   return (
-    <div style={{
-      maxWidth: '600px',
-      margin: '0 auto',
-      padding: '20px',
-      backgroundColor: '#f9f9f9',
-      minHeight: '100vh'
-    }}>
-      <h1 style={{
-        color: '#1D9E75',
-        marginBottom: '4px'
-      }}>
-        Bristol Larder
-      </h1>
-
-      <p style={{
-        color: '#888',
-        marginBottom: '20px',
-        fontSize: '14px'
-      }}>
-        Connecting Bristol growers and makers
-      </p>
-
-      <input
-        type="text"
-        placeholder="Search listings..."
-        value={searchTerm}
-        onChange={(e) => setSearchTerm(e.target.value)}
-        style={{
-          width: '100%',
-          padding: '10px 14px',
-          borderRadius: '8px',
-          border: '1px solid #ddd',
-          fontSize: '14px',
-          marginBottom: '16px',
-          boxSizing: 'border-box' as const,
-          outline: 'none'
-        }}
-      />
-
-      <div style={{
-        display: 'flex',
-        gap: '8px',
-        flexWrap: 'wrap',
-        marginBottom: '20px'
-      }}>
-        {categories.map(category => (
-          <button
-            key={category}
-            onClick={() => setActiveCategory(category)}
-            style={{
-              padding: '6px 14px',
-              borderRadius: '20px',
-              border: '1px solid',
-              borderColor: activeCategory === category ? '#1D9E75' : '#ddd',
-              backgroundColor: activeCategory === category ? '#1D9E75' : 'white',
-              color: activeCategory === category ? 'white' : '#666',
-              cursor: 'pointer',
-              fontSize: '13px',
-              fontWeight: activeCategory === category ? 500 : 400
-            }}
-          >
-            {category}
-          </button>
-        ))}
+    <div className="app">
+      <div className="header">
+        <h1>Bristol Larder</h1>
+        <p>Connecting Bristol growers and makers</p>
       </div>
 
-      {loading ? (
-        <p style={{
-          color: '#888',
-          textAlign: 'center',
-          marginTop: '40px'
-        }}>
-          Loading listings...
-        </p>
-      ) : filteredListings.length === 0 ? (
-        <p style={{
-          color: '#888',
-          textAlign: 'center',
-          marginTop: '40px'
-        }}>
-          No listings in this category yet.
-        </p>
-      ) : (
-        filteredListings.map(listing => (
-          <ListingCard
-            key={listing.id}
-            title={listing.title}
-            location={listing.location}
-            category={listing.category}
-            type={listing.type}
-            description={listing.description}
-          />
-        ))
-      )}
+      <div className="main">
+        <input
+          type="text"
+          placeholder="Search listings..."
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+          className="search-bar"
+        />
 
+        <div className="filters">
+          {categories.map(category => (
+            <button
+              key={category}
+              onClick={() => setActiveCategory(category)}
+              className={`filter-btn ${activeCategory === category ? 'active' : ''}`}
+            >
+              {category}
+            </button>
+          ))}
+        </div>
+
+        {loading ? (
+          <div className="loading">
+            <p>Finding listings near you...</p>
+          </div>
+        ) : filteredListings.length === 0 ? (
+          <div className="empty-state">
+            <h3>Nothing here yet</h3>
+            <p>No listings in this category right now.<br />Check back soon or try a different filter.</p>
+          </div>
+        ) : (
+          filteredListings.map(listing => (
+            <ListingCard
+              key={listing.id}
+              title={listing.title}
+              location={listing.location}
+              category={listing.category}
+              type={listing.type}
+              description={listing.description}
+            />
+          ))
+        )}
+
+        <div className="footer">
+          <p>Bristol Larder — connecting Bristol growers and makers 🌿</p>
+        </div>
+      </div>
     </div>
   )
 }

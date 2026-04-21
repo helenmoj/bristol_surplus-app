@@ -1,38 +1,177 @@
-.App {
-  text-align: center;
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+body {
+  background-color: #f4f4f0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  color: #333;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.app {
+  max-width: 640px;
+  margin: 0 auto;
+  padding-bottom: 40px;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.header {
+  background-color: #1D9E75;
+  padding: 24px 20px;
+  margin-bottom: 24px;
+}
+
+.header h1 {
+  color: white;
+  font-size: 26px;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.header p {
+  color: rgba(255,255,255,0.8);
+  font-size: 14px;
+}
+
+.main {
+  padding: 0 16px;
+}
+
+.search-bar {
+  width: 100%;
+  padding: 12px 16px;
+  border-radius: 10px;
+  border: 1px solid #ddd;
+  font-size: 14px;
+  margin-bottom: 16px;
+  outline: none;
+  background-color: white;
+  color: #333;
+}
+
+.search-bar:focus {
+  border-color: #1D9E75;
+}
+
+.filters {
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+}
+
+.filter-btn {
+  padding: 7px 16px;
+  border-radius: 20px;
+  border: 1px solid #ddd;
+  background-color: white;
+  color: #666;
+  cursor: pointer;
+  font-size: 13px;
+  transition: all 0.15s ease;
+}
+
+.filter-btn.active {
+  background-color: #1D9E75;
+  border-color: #1D9E75;
+  color: white;
+  font-weight: 500;
+}
+
+.filter-btn:hover {
+  border-color: #1D9E75;
+  color: #1D9E75;
+}
+
+.filter-btn.active:hover {
   color: white;
 }
 
-.App-link {
-  color: #61dafb;
+.listing-card {
+  background: white;
+  border-radius: 12px;
+  padding: 16px;
+  margin-bottom: 12px;
+  border: 1px solid #e8e8e8;
+  transition: transform 0.15s ease;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.listing-card:hover {
+  transform: translateY(-1px);
+}
+
+.listing-card h3 {
+  font-size: 15px;
+  font-weight: 600;
+  color: #1a1a1a;
+  margin-bottom: 4px;
+}
+
+.listing-card .location {
+  font-size: 12px;
+  color: #999;
+  margin-bottom: 8px;
+}
+
+.listing-card .description {
+  font-size: 13px;
+  color: #555;
+  line-height: 1.5;
+  margin-bottom: 12px;
+}
+
+.badges {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.badge {
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 500;
+}
+
+.badge-veg { background: #EAF3DE; color: #3B6D11; }
+.badge-fruit { background: #FAEEDA; color: #854F0B; }
+.badge-preserves { background: #E1F5EE; color: #0F6E56; }
+.badge-garden { background: #EEEDFE; color: #3C3489; }
+.badge-other { background: #f0f0f0; color: #666; }
+.badge-free { background: #E6F1FB; color: #185FA5; }
+.badge-swap { background: #FBEAF0; color: #993556; }
+.badge-wanted { background: #EEEDFE; color: #3C3489; }
+.badge-price { background: #EAF3DE; color: #3B6D11; }
+
+.empty-state {
+  text-align: center;
+  padding: 60px 20px;
+  color: #999;
+}
+
+.empty-state h3 {
+  font-size: 16px;
+  margin-bottom: 8px;
+  color: #666;
+}
+
+.empty-state p {
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+.loading {
+  text-align: center;
+  padding: 60px 20px;
+  color: #999;
+  font-size: 14px;
+}
+
+.footer {
+  text-align: center;
+  padding: 30px 20px 0;
+  color: #bbb;
+  font-size: 12px;
 }
