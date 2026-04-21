@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import ListingCard from './ListingCard'
 import Admin from './Admin'
+import SuggestListing from './SuggestListing'
 import { supabase } from './supabase'
 import './App.css'
 
@@ -42,6 +43,10 @@ function App() {
 
   if (window.location.search === '?admin=true') {
     return <Admin />
+  }
+
+  if (window.location.search === '?suggest=true') {
+    return <SuggestListing />
   }
 
   const filteredListings = listings
@@ -87,7 +92,11 @@ function App() {
         ) : filteredListings.length === 0 ? (
           <div className="empty-state">
             <h3>Nothing here yet</h3>
-            <p>No listings in this category right now.<br />Check back soon or try a different filter.</p>
+            <p>
+              No listings in this category right now.
+              <br />
+              Check back soon or try a different filter.
+            </p>
           </div>
         ) : (
           filteredListings.map(listing => (
@@ -103,6 +112,22 @@ function App() {
         )}
 
         <div className="footer">
+          <button
+            onClick={() => window.location.href = '/?suggest=true'}
+            style={{
+              backgroundColor: '#1D9E75',
+              color: 'white',
+              border: 'none',
+              padding: '12px 24px',
+              borderRadius: '8px',
+              fontSize: '14px',
+              cursor: 'pointer',
+              marginBottom: '16px',
+              width: '100%'
+            }}
+          >
+            Suggest a listing
+          </button>
           <p>Bristol Larder — connecting Bristol growers and makers 🌿</p>
         </div>
       </div>
