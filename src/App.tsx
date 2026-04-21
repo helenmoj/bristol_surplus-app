@@ -12,6 +12,7 @@ type Listing = {
   category: string
   type: string
   description: string
+  contact?: string
 }
 
 const categories = ['All', 'Veg', 'Fruit', 'Preserves', 'Garden']
@@ -108,6 +109,7 @@ function App() {
               category={listing.category}
               type={listing.type}
               description={listing.description}
+              contact={listing.contact}
             />
           ))
         )}

@@ -13,6 +13,7 @@ function Admin() {
   const categories = ['Veg', 'Fruit', 'Preserves', 'Garden', 'Other']
   const types = ['Free', 'Swap', 'Wanted', '£']
   const [expiryDays, setExpiryDays] = useState('30')
+  const [contact, setContact] = useState('')
 
 
   async function handleSubmit() {
@@ -34,6 +35,7 @@ function Admin() {
         category,
         type,
         description,
+        contact,
         expires_at: expiryDate.toISOString()
       }])
 
@@ -47,6 +49,7 @@ function Admin() {
       setCategory('Veg')
       setType('Free')
       setDescription('')
+      setContact('')
     }
 
     setLoading(false)
@@ -199,6 +202,33 @@ function Admin() {
           }}
         />
       </div>
+
+      <div style={{ marginBottom: '14px' }}>
+  <label style={{ 
+    fontSize: '13px', 
+    color: '#444', 
+    display: 'block', 
+    marginBottom: '6px' 
+  }}>
+    Contact details
+  </label>
+  <input
+    type="text"
+    value={contact}
+    onChange={(e) => setContact(e.target.value)}
+    placeholder="e.g. email address or phone number"
+    style={{
+      width: '100%',
+      padding: '10px 14px',
+      borderRadius: '8px',
+      border: '1px solid #ddd',
+      fontSize: '14px',
+      boxSizing: 'border-box' as const,
+      outline: 'none',
+      color: '#333'
+    }}
+  />
+</div>
 
       <div style={{ marginBottom: '14px' }}>
   <label style={{ fontSize: '13px', color: '#444', display: 'block', marginBottom: '6px' }}>

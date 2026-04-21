@@ -237,6 +237,31 @@ function SuggestListing() {
             />
           </div>
 
+          <div style={{ marginBottom: '14px' }}>
+  <label style={{
+    fontSize: '13px',
+    color: '#444',
+    display: 'block',
+    marginBottom: '6px'
+  }}>
+    Your contact details
+  </label>
+  <input
+    type="text"
+    name="contact"
+    placeholder="Email or phone number for interested people"
+    style={{
+      width: '100%',
+      padding: '10px 14px',
+      borderRadius: '8px',
+      border: '1px solid #ddd',
+      fontSize: '14px',
+      outline: 'none',
+      color: '#333'
+    }}
+  />
+</div>
+
           <div style={{ marginBottom: '20px' }}>
             <label style={{
               fontSize: '13px',
