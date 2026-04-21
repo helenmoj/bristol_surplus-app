@@ -128,7 +128,7 @@ function App() {
           >
             Suggest a listing
           </button>
-          <p>Bristol Larder — connecting Bristol growers and makers 🌿</p>
+          <p>Bristol Larder — connecting Bristol growers and makers 🌱</p>
         </div>
       </div>
     </div>
