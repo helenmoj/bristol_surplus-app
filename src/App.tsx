@@ -21,6 +21,7 @@ function App() {
   const [searchTerm, setSearchTerm] = useState('')
   const [listings, setListings] = useState<Listing[]>([])
   const [loading, setLoading] = useState(true)
+  const [showAbout, setShowAbout] = useState(false)
 
   useEffect(() => {
     fetchListings()
@@ -112,6 +113,83 @@ function App() {
         )}
 
         <div className="footer">
+          <div style={{
+            backgroundColor: 'white',
+            borderRadius: '12px',
+            border: '1px solid #e8e8e8',
+            marginBottom: '12px',
+            overflow: 'hidden'
+          }}>
+            <button
+              onClick={() => setShowAbout(!showAbout)}
+              style={{
+                width: '100%',
+                padding: '14px 16px',
+                backgroundColor: 'transparent',
+                border: 'none',
+                cursor: 'pointer',
+                display: 'flex',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+                fontSize: '14px',
+                fontWeight: 500,
+                color: '#333'
+              }}
+            >
+              <span>About Bristol Larder</span>
+              <span style={{
+                fontSize: '18px',
+                color: '#1D9E75',
+                transform: showAbout ? 'rotate(45deg)' : 'rotate(0deg)',
+                transition: 'transform 0.2s ease',
+                display: 'inline-block'
+              }}>
+                +
+              </span>
+            </button>
+
+            {showAbout && (
+              <div style={{
+                padding: '0 16px 16px',
+                borderTop: '1px solid #f0f0f0'
+              }}>
+                <p style={{
+                  fontSize: '13px',
+                  color: '#555',
+                  lineHeight: '1.7',
+                  marginBottom: '10px',
+                  paddingTop: '12px'
+                }}>
+                  Bristol Larder is a free community platform built by a local Bristolian for BS6 and BS7 growers, makers and neighbours.
+                </p>
+                <p style={{
+                  fontSize: '13px',
+                  color: '#555',
+                  lineHeight: '1.7',
+                  marginBottom: '10px'
+                }}>
+                  The idea came from seeing handwritten posters on allotment fences — people with surplus bean poles, too many courgettes, windfall apples — with no easy way of reaching the people who would love them.
+                </p>
+                <p style={{
+                  fontSize: '13px',
+                  color: '#555',
+                  lineHeight: '1.7',
+                  marginBottom: '10px'
+                }}>
+                  This is the early version. No download needed — just visit on your phone. It's growing, it's free, and it's yours.
+                </p>
+                <p style={{
+                  fontSize: '13px',
+                  color: '#1D9E75',
+                  lineHeight: '1.7',
+                  fontWeight: 500
+                }}>
+                  Have something to share? Hit the button below 🌱
+                </p>
+              </div>
+            )}
+          </div>
+
           <button
             onClick={() => window.location.href = '/?suggest=true'}
             style={{
@@ -126,9 +204,16 @@ function App() {
               width: '100%'
             }}
           >
-            Suggest a listing
+            Suggest a listing 🌱
           </button>
-          <p>Bristol Larder — connecting Bristol growers and makers 🌱</p>
+
+          <p style={{
+            fontSize: '12px',
+            color: '#bbb',
+            textAlign: 'center'
+          }}>
+            Bristol Larder — connecting Bristol growers and makers 🌱
+          </p>
         </div>
       </div>
     </div>
