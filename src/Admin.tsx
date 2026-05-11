@@ -8,13 +8,19 @@ function Admin() {
   const [type, setType] = useState('Free')
   const [description, setDescription] = useState('')
   const [submitted, setSubmitted] = useState(false)
-  const [loading, setLoading] = useState(false)
+  const [contact, setContact] = useState('')
+  const [expiryDays, setExpiryDays] = useState('30')
+  const [imageFile, setImageFile] = useState<File | null>(null)
+  const [uploading, setUploading] = useState(false)
 
   const categories = ['Veg', 'Fruit', 'Preserves', 'Garden', 'Other']
   const types = ['Free', 'Swap', 'Wanted', '£']
-  const [expiryDays, setExpiryDays] = useState('30')
-  const [contact, setContact] = useState('')
 
+  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files[0]) {
+      setImageFile(e.target.files[0])
+    }
+  }
 
   async function handleSubmit() {
     if (!title || !location || !description) {
@@ -22,37 +28,73 @@ function Admin() {
       return
     }
 
-    setLoading(true)
+    setUploading(true)
 
-   const expiryDate = new Date()
-    expiryDate.setDate(expiryDate.getDate() + parseInt(expiryDays))
+    try {
+      let imageUrl = null
 
-    const { error } = await supabase
-      .from('listings')
-      .insert([{
-        title,
-        location,
-        category,
-        type,
-        description,
-        contact,
-        expires_at: expiryDate.toISOString()
-      }])
+      // Upload image if one was selected
+      if (imageFile) {
+        const fileExt = imageFile.name.split('.').pop()
+        const fileName = `${Math.random()}.${fileExt}`
+        
+        const { data: uploadData, error: uploadError } = await supabase.storage
+          .from('listing-images')
+          .upload(fileName, imageFile)
 
-    if (error) {
-      console.error('Error adding listing:', error)
-      alert('Something went wrong — check the console')
-    } else {
-      setSubmitted(true)
-      setTitle('')
-      setLocation('')
-      setCategory('Veg')
-      setType('Free')
-      setDescription('')
-      setContact('')
+        if (uploadError) {
+          console.error('Upload error:', uploadError)
+          alert('Failed to upload image')
+          setUploading(false)
+          return
+        }
+
+        if (uploadData) {
+          const { data: urlData } = supabase.storage
+            .from('listing-images')
+            .getPublicUrl(uploadData.path)
+          
+          imageUrl = urlData.publicUrl
+        }
+      }
+
+      // Calculate expiry date
+      const expiryDate = new Date()
+      expiryDate.setDate(expiryDate.getDate() + parseInt(expiryDays))
+
+      // Insert listing with image URL
+      const { error } = await supabase
+        .from('listings')
+        .insert([{
+          title,
+          location,
+          category,
+          type,
+          description,
+          contact,
+          image_url: imageUrl,
+          expires_at: expiryDate.toISOString()
+        }])
+
+      if (error) {
+        console.error('Error adding listing:', error)
+        alert('Something went wrong — check the console')
+      } else {
+        setSubmitted(true)
+        setTitle('')
+        setLocation('')
+        setCategory('Veg')
+        setType('Free')
+        setDescription('')
+        setContact('')
+        setImageFile(null)
+      }
+    } catch (err) {
+      console.error('Error:', err)
+      alert('Something went wrong')
     }
 
-    setLoading(false)
+    setUploading(false)
   }
 
   return (
@@ -204,74 +246,103 @@ function Admin() {
       </div>
 
       <div style={{ marginBottom: '14px' }}>
-  <label style={{ 
-    fontSize: '13px', 
-    color: '#444', 
-    display: 'block', 
-    marginBottom: '6px' 
-  }}>
-    Contact details
-  </label>
-  <input
-    type="text"
-    value={contact}
-    onChange={(e) => setContact(e.target.value)}
-    placeholder="e.g. email address or phone number"
-    style={{
-      width: '100%',
-      padding: '10px 14px',
-      borderRadius: '8px',
-      border: '1px solid #ddd',
-      fontSize: '14px',
-      boxSizing: 'border-box' as const,
-      outline: 'none',
-      color: '#333'
-    }}
-  />
-</div>
+        <label style={{ 
+          fontSize: '13px', 
+          color: '#444', 
+          display: 'block', 
+          marginBottom: '6px' 
+        }}>
+          Contact details
+        </label>
+        <input
+          type="text"
+          value={contact}
+          onChange={(e) => setContact(e.target.value)}
+          placeholder="e.g. email address or phone number"
+          style={{
+            width: '100%',
+            padding: '10px 14px',
+            borderRadius: '8px',
+            border: '1px solid #ddd',
+            fontSize: '14px',
+            boxSizing: 'border-box' as const,
+            outline: 'none',
+            color: '#333'
+          }}
+        />
+      </div>
+
+      <div style={{ marginBottom: '16px' }}>
+        <label style={{
+          display: 'block',
+          marginBottom: '8px',
+          fontSize: '13px',
+          color: '#444'
+        }}>
+          Photo (optional)
+        </label>
+        <input
+          type="file"
+          accept="image/*"
+          onChange={handleImageChange}
+          style={{
+            display: 'block',
+            fontSize: '14px'
+          }}
+        />
+        {imageFile && (
+          <p style={{ 
+            marginTop: '8px', 
+            fontSize: '13px', 
+            color: '#666' 
+          }}>
+            Selected: {imageFile.name}
+          </p>
+        )}
+      </div>
 
       <div style={{ marginBottom: '14px' }}>
-  <label style={{ fontSize: '13px', color: '#444', display: 'block', marginBottom: '6px' }}>
-    How long should this listing stay up?
-  </label>
-  <select
-    value={expiryDays}
-    onChange={(e) => setExpiryDays(e.target.value)}
-    style={{
-      width: '100%',
-      padding: '10px 14px',
-      borderRadius: '8px',
-      border: '1px solid #ddd',
-      fontSize: '14px',
-      boxSizing: 'border-box' as const,
-      outline: 'none',
-      backgroundColor: 'white',
-      color: '#333'
-    }}
-  >
-    <option value="7">7 days — fresh produce</option>
-    <option value="14">14 days — general food</option>
-    <option value="30">30 days — garden items</option>
-    <option value="90">90 days — tools and equipment</option>
-  </select>
-</div>
+        <label style={{ fontSize: '13px', color: '#444', display: 'block', marginBottom: '6px' }}>
+          How long should this listing stay up?
+        </label>
+        <select
+          value={expiryDays}
+          onChange={(e) => setExpiryDays(e.target.value)}
+          style={{
+            width: '100%',
+            padding: '10px 14px',
+            borderRadius: '8px',
+            border: '1px solid #ddd',
+            fontSize: '14px',
+            boxSizing: 'border-box' as const,
+            outline: 'none',
+            backgroundColor: 'white',
+            color: '#333'
+          }}
+        >
+          <option value="7">7 days — fresh produce</option>
+          <option value="14">14 days — general food</option>
+          <option value="30">30 days — garden items</option>
+          <option value="90">90 days — tools and equipment</option>
+        </select>
+      </div>
 
       <button
         onClick={handleSubmit}
-        disabled={loading}
+        disabled={uploading}
         style={{
           width: '100%',
           padding: '12px',
-          backgroundColor: loading ? '#aaa' : '#1D9E75',
+          backgroundColor: uploading ? '#aaa' : '#1D9E75',
           color: 'white',
           border: 'none',
           borderRadius: '8px',
           fontSize: '15px',
           fontWeight: 500,
-          cursor: loading ? 'not-allowed' : 'pointer'
+          cursor: uploading ? 'not-allowed' : 'pointer'
         }}
       >
-        {loading ? 'Adding...' : 'Add listing'}
+        {uploading ? 'Uploading...' : 'Add listing'}
       </button>
     </div>
   )

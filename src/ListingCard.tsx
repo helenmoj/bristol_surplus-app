@@ -5,6 +5,7 @@ type ListingProps = {
   type: string
   description: string
   contact?: string
+  image_url?: string  
 }
 
 function getCategoryClass(category: string) {
@@ -24,9 +25,22 @@ function getTypeClass(type: string) {
   return 'badge-price'
 }
 
-function ListingCard({ title, location, category, type, description, contact }: ListingProps) {
+function ListingCard({ title, location, category, type, description, contact, image_url }: ListingProps) {
   return (
     <div className="listing-card">
+      {image_url && (
+        <img 
+          src={image_url} 
+          alt={title}
+          style={{
+            width: '100%',
+            height: '200px',
+            objectFit: 'cover',
+            borderRadius: '8px',
+            marginBottom: '12px'
+          }}
+        />
+      )}
       <h3>{title}</h3>
       <p className="location">{location}</p>
       <p className="description">{description}</p>
@@ -38,7 +52,6 @@ function ListingCard({ title, location, category, type, description, contact }: 
           {type}
         </span>
       </div>
-
       {contact && (
         <div style={{
           marginTop: '10px',

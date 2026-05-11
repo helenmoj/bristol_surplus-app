@@ -89,12 +89,12 @@ function SuggestListing() {
             Suggest a listing
           </h2>
           <p style={{
-            fontSize: '13px',
-            color: '#888',
-            lineHeight: '1.5'
-          }}>
-            Got surplus veg, fruit, garden items or homemade preserves to share? Let us know and we'll add it to Bristol Larder.
-          </p>
+  fontSize: '13px',
+  color: '#888',
+  lineHeight: '1.5'
+}}>
+  Submit your listing here — surplus food, plants, seeds, garden equipment, or what you're looking for. I'll add it within 24 hours. Have a photo? Mention it in your description and I'll contact you for it. User accounts and 'Made from Surplus' gallery coming soon!
+</p>
         </div>
 
         <form onSubmit={handleSubmit}>
