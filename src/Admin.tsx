@@ -73,6 +73,7 @@ function Admin() {
           description,
           contact,
           image_url: imageUrl,
+          created_at: new Date().toISOString(),
           expires_at: expiryDate.toISOString()
         }])
 

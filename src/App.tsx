@@ -13,6 +13,8 @@ type Listing = {
   type: string
   description: string
   contact?: string
+  image_url?: string
+  created_at: string
 }
 
 const categories = ['All', 'Veg', 'Fruit', 'Preserves', 'Garden']
@@ -92,13 +94,48 @@ function App() {
             <p>Finding listings near you...</p>
           </div>
         ) : filteredListings.length === 0 ? (
-          <div className="empty-state">
-            <h3>Nothing here yet</h3>
-            <p>
-              No listings in this category right now.
-              <br />
-              Check back soon or try a different filter.
+          <div style={{
+            textAlign: 'center',
+            padding: '60px 20px',
+            color: '#666'
+          }}>
+            <div style={{
+              fontSize: '48px',
+              marginBottom: '16px'
+            }}>
+              🌱
+            </div>
+            <h3 style={{
+              fontSize: '18px',
+              color: '#1a1a1a',
+              marginBottom: '8px',
+              fontWeight: 500
+            }}>
+              Nothing here yet
+            </h3>
+            <p style={{
+              fontSize: '14px',
+              lineHeight: '1.6',
+              marginBottom: '20px',
+              color: '#666'
+            }}>
+              Growers are just getting started. Check back soon or be the first to list something!
             </p>
+            <button
+              onClick={() => window.location.href = '/?suggest=true'}
+              style={{
+                backgroundColor: '#1D9E75',
+                color: 'white',
+                border: 'none',
+                padding: '10px 20px',
+                borderRadius: '8px',
+                fontSize: '14px',
+                cursor: 'pointer',
+                fontWeight: 500
+              }}
+            >
+              Suggest a listing
+            </button>
           </div>
         ) : (
           filteredListings.map(listing => (
@@ -110,6 +147,8 @@ function App() {
               type={listing.type}
               description={listing.description}
               contact={listing.contact}
+              image_url={listing.image_url}
+              created_at={listing.created_at}  
             />
           ))
         )}

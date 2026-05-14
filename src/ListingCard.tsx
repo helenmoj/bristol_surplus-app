@@ -1,3 +1,5 @@
+import { formatDistanceToNow } from 'date-fns'
+
 type ListingProps = {
   title: string
   location: string
@@ -6,6 +8,7 @@ type ListingProps = {
   description: string
   contact?: string
   image_url?: string  
+   created_at: string
 }
 
 function getCategoryClass(category: string) {
@@ -18,6 +21,16 @@ function getCategoryClass(category: string) {
   }
 }
 
+function getCategoryIcon(category: string) {
+  switch(category.toLowerCase()) {
+    case 'veg': return '🥕'
+    case 'fruit': return '🍎'
+    case 'preserves': return '🫙'
+    case 'garden': return '🌱'
+    default: return '📦'
+  }
+}
+
 function getTypeClass(type: string) {
   if (type === 'Free') return 'badge-free'
   if (type === 'Swap') return 'badge-swap'
@@ -25,56 +38,81 @@ function getTypeClass(type: string) {
   return 'badge-price'
 }
 
-function ListingCard({ title, location, category, type, description, contact, image_url }: ListingProps) {
+function ListingCard({ title, location, category, type, description, contact, image_url,created_at }: ListingProps) {
+
+    const isNew = new Date(created_at) > new Date(Date.now() - 7 * 24 * 60 * 60 * 1000)
+
   return (
-    <div className="listing-card">
-      {image_url && (
-        <img 
-          src={image_url} 
-          alt={title}
-          style={{
-            width: '100%',
-            height: '200px',
-            objectFit: 'cover',
-            borderRadius: '8px',
-            marginBottom: '12px'
-          }}
-        />
+    <div className="listing-card" style={{ position: 'relative' }}>
+      {isNew && (
+        <div style={{
+          position: 'absolute',
+          top: '12px',
+          right: '12px',
+          backgroundColor: '#1D9E75',
+          color: 'white',
+          padding: '4px 10px',
+          borderRadius: '12px',
+          fontSize: '11px',
+          fontWeight: 600,
+          textTransform: 'uppercase',
+          letterSpacing: '0.5px'
+        }}>
+          New
+        </div>
       )}
       <h3>{title}</h3>
       <p className="location">{location}</p>
+    { created_at && (
+      <p style={{
+      fontSize: '12px',
+      color: '#999',
+      marginTop: '4px'
+       }}>
+  Posted {formatDistanceToNow(new Date(created_at), { addSuffix: true })}
+</p>
+    )}
       <p className="description">{description}</p>
-      <div className="badges">
+      <div className="badges" style={{ marginTop: '12px' }}>
         <span className={`badge ${getCategoryClass(category)}`}>
-          {category}
-        </span>
+         {getCategoryIcon(category)} {category}
+          </span>
         <span className={`badge ${getTypeClass(type)}`}>
           {type}
         </span>
       </div>
       {contact && (
-        <div style={{
-          marginTop: '10px',
-          paddingTop: '10px',
-          borderTop: '1px solid #f0f0f0'
-        }}>
-          <p style={{
-            fontSize: '12px',
-            color: '#888',
-            marginBottom: '2px'
-          }}>
-            Contact
-          </p>
-          <p style={{
-            fontSize: '13px',
-            color: '#1D9E75',
-            fontWeight: 500
-          }}>
-            {contact}
-          </p>
-        </div>
-      )}
-    </div>
+  <div style={{
+    marginTop: '12px',
+    paddingTop: '12px',
+    borderTop: '1px solid #e8e8e8',
+    backgroundColor: '#f9faf9',
+    padding: '12px',
+    borderRadius: '6px',
+    marginLeft: '-12px',
+    marginRight: '-12px',
+    marginBottom: '-12px'
+  }}>
+    <p style={{
+      fontSize: '11px',
+      color: '#888',
+      marginBottom: '4px',
+      textTransform: 'uppercase',
+      letterSpacing: '0.5px',
+      fontWeight: 600
+    }}>
+      Contact
+    </p>
+    <p style={{
+      fontSize: '14px',
+      color: '#1D9E75',
+      fontWeight: 500
+    }}>
+      {contact}
+    </p>
+  </div>
+)}
+ </div>
   )
 }
 

@@ -88,13 +88,50 @@ function SuggestListing() {
           }}>
             Suggest a listing
           </h2>
-          <p style={{
+     <div style={{ 
+  marginBottom: '24px',
+  paddingBottom: '16px',
+  borderBottom: '1px solid #e8e8e8'
+}}>
+  <button
+    onClick={() => window.location.href = '/'}
+    onMouseEnter={(e) => {
+      e.currentTarget.style.backgroundColor = '#1D9E75'
+      e.currentTarget.style.color = 'white'
+      e.currentTarget.style.borderColor = '#1D9E75'
+    }}
+    onMouseLeave={(e) => {
+      e.currentTarget.style.backgroundColor = 'white'
+      e.currentTarget.style.color = '#666'
+      e.currentTarget.style.borderColor = '#ddd'
+    }}
+    style={{
+      backgroundColor: 'white',
+      color: '#666',
+      border: '1px solid #ddd',
+      padding: '8px 16px',
+      borderRadius: '6px',
+      fontSize: '13px',
+      cursor: 'pointer',
+      display: 'flex',
+      alignItems: 'center',
+      gap: '6px',
+      fontWeight: 500
+    }}
+  >
+    <span>←</span>
+    <span>Back to listings</span>
+  </button>
+</div>
+
+<p style={{
   fontSize: '13px',
   color: '#888',
   lineHeight: '1.5'
 }}>
   Submit your listing here — surplus food, plants, seeds, garden equipment, or what you're looking for. I'll add it within 24 hours. Have a photo? Mention it in your description and I'll contact you for it. User accounts and 'Made from Surplus' gallery coming soon!
 </p>
+
         </div>
 
         <form onSubmit={handleSubmit}>
