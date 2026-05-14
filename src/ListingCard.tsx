@@ -66,7 +66,7 @@ function ListingCard({ title, location, category, type, description, contact, im
     { created_at && (
       <p style={{
       fontSize: '12px',
-      color: '#999',
+      color: '#595959',
       marginTop: '4px'
        }}>
   Posted {formatDistanceToNow(new Date(created_at), { addSuffix: true })}
@@ -85,7 +85,7 @@ function ListingCard({ title, location, category, type, description, contact, im
   <div style={{
     marginTop: '12px',
     paddingTop: '12px',
-    borderTop: '1px solid #e8e8e8',
+    borderTop: '1px solid #D0D0D0',
     backgroundColor: '#f9faf9',
     padding: '12px',
     borderRadius: '6px',

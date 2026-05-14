@@ -3,6 +3,7 @@ import ListingCard from './ListingCard'
 import Admin from './Admin'
 import SuggestListing from './SuggestListing'
 import { supabase } from './supabase'
+import CookieBanner from './CookieNotice';
 import './App.css'
 
 type Listing = {
@@ -97,7 +98,7 @@ function App() {
           <div style={{
             textAlign: 'center',
             padding: '60px 20px',
-            color: '#666'
+            color: '#3D3D3D'
           }}>
             <div style={{
               fontSize: '48px',
@@ -117,7 +118,7 @@ function App() {
               fontSize: '14px',
               lineHeight: '1.6',
               marginBottom: '20px',
-              color: '#666'
+              color: '#3D3D3D'
             }}>
               Growers are just getting started. Check back soon or be the first to list something!
             </p>
@@ -157,7 +158,7 @@ function App() {
           <div style={{
             backgroundColor: 'white',
             borderRadius: '12px',
-            border: '1px solid #e8e8e8',
+            border: '1px solid #D0D0D0',
             marginBottom: '12px',
             overflow: 'hidden'
           }}>
@@ -250,13 +251,14 @@ function App() {
 
           <p style={{
             fontSize: '12px',
-            color: '#bbb',
+            color: '#6E6E6E',
             textAlign: 'center'
           }}>
             Bristol Larder — connecting Bristol growers and makers 🌱
           </p>
         </div>
       </div>
+      <CookieBanner />  
     </div>
   )
 }

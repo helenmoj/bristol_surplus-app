@@ -46,7 +46,7 @@ function SuggestListing() {
               Thank you!
             </h2>
             <p style={{
-              color: '#666',
+              color: '#3D3D3D',
               fontSize: '14px',
               lineHeight: '1.6',
               marginBottom: '24px'
@@ -91,7 +91,7 @@ function SuggestListing() {
      <div style={{ 
   marginBottom: '24px',
   paddingBottom: '16px',
-  borderBottom: '1px solid #e8e8e8'
+  borderBottom: '1px solid #D0D0D0'
 }}>
   <button
     onClick={() => window.location.href = '/'}
@@ -102,12 +102,12 @@ function SuggestListing() {
     }}
     onMouseLeave={(e) => {
       e.currentTarget.style.backgroundColor = 'white'
-      e.currentTarget.style.color = '#666'
+      e.currentTarget.style.color = '#3D3D3D'
       e.currentTarget.style.borderColor = '#ddd'
     }}
     style={{
       backgroundColor: 'white',
-      color: '#666',
+      color: '#3D3D3D',
       border: '1px solid #ddd',
       padding: '8px 16px',
       borderRadius: '6px',

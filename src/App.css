@@ -1,3 +1,15 @@
+:root {
+  --text-primary: #1a1a1a;
+  --text-secondary: #3D3D3D;
+  --text-muted: #595959;
+  --text-faint: #6E6E6E;
+
+  --border-light: #D0D0D0;
+
+  --brand-green: #1D9E75;
+}
+
+
 * {
   box-sizing: border-box;
   margin: 0;
@@ -66,7 +78,7 @@ body {
   border-radius: 20px;
   border: 1px solid #ddd;
   background-color: white;
-  color: #666;
+  color: var(--text-secondary);
   cursor: pointer;
   font-size: 13px;
   transition: all 0.15s ease;
@@ -94,7 +106,7 @@ body {
   border-radius: 12px;
   padding: 16px;
   margin-bottom: 12px;
-  border: 1px solid #e8e8e8;
+  border: 1px solid var(--border-light);
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
@@ -112,7 +124,7 @@ body {
 
 .listing-card .location {
   font-size: 12px;
-  color: #999;
+  color: var(--text-muted);
   margin-bottom: 8px;
 }
 
@@ -141,7 +153,7 @@ body {
 .badge-fruit { background: #FAEEDA; color: #854F0B; }
 .badge-preserves { background: #E1F5EE; color: #0F6E56; }
 .badge-garden { background: #EEEDFE; color: #3C3489; }
-.badge-other { background: #f0f0f0; color: #666; }
+.badge-other { background: #f0f0f0; color: var(--text-secondary); }
 .badge-free { background: #E6F1FB; color: #185FA5; }
 .badge-swap { background: #FBEAF0; color: #993556; }
 .badge-wanted { background: #EEEDFE; color: #3C3489; }
@@ -150,13 +162,13 @@ body {
 .empty-state {
   text-align: center;
   padding: 60px 20px;
-  color: #999;
+  color: var(--text-muted);
 }
 
 .empty-state h3 {
   font-size: 16px;
   margin-bottom: 8px;
-  color: #666;
+  color: var(--text-secondary);
 }
 
 .empty-state p {
@@ -167,13 +179,13 @@ body {
 .loading {
   text-align: center;
   padding: 60px 20px;
-  color: #999;
+  color: var(--text-muted);
   font-size: 14px;
 }
 
 .footer {
   text-align: center;
   padding: 30px 20px 0;
-  color: #bbb;
+  color: var(--text-faint);
   font-size: 12px;
 }
