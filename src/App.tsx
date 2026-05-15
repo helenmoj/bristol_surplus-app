@@ -122,21 +122,23 @@ function App() {
             }}>
               Growers are just getting started. Check back soon or be the first to list something!
             </p>
-            <button
-              onClick={() => window.location.href = '/?suggest=true'}
-              style={{
-                backgroundColor: '#1D9E75',
-                color: 'white',
-                border: 'none',
-                padding: '10px 20px',
-                borderRadius: '8px',
-                fontSize: '14px',
-                cursor: 'pointer',
-                fontWeight: 500
-              }}
-            >
-              Suggest a listing
-            </button>
+            <a
+  href="/?suggest=true"
+  style={{
+    display: 'inline-block',
+    backgroundColor: '#1D9E75',
+    color: 'white',
+    border: 'none',
+    padding: '10px 20px',
+    borderRadius: '8px',
+    fontSize: '14px',
+    cursor: 'pointer',
+    fontWeight: 500,
+    textDecoration: 'none'
+  }}
+>
+  Suggest a listing 🌱
+</a>
           </div>
         ) : (
           filteredListings.map(listing => (
@@ -232,22 +234,26 @@ function App() {
             )}
           </div>
 
-          <button
-            onClick={() => window.location.href = '/?suggest=true'}
-            style={{
-              backgroundColor: '#1D9E75',
-              color: 'white',
-              border: 'none',
-              padding: '12px 24px',
-              borderRadius: '8px',
-              fontSize: '14px',
-              cursor: 'pointer',
-              marginBottom: '16px',
-              width: '100%'
-            }}
-          >
-            Suggest a listing 🌱
-          </button>
+          <a
+  href="/?suggest=true"
+  style={{
+    display: 'block',
+    backgroundColor: '#1D9E75',
+    color: 'white',
+    border: 'none',
+    padding: '12px 24px',
+    borderRadius: '8px',
+    fontSize: '14px',
+    cursor: 'pointer',
+    marginBottom: '16px',
+    width: '100%',
+    textAlign: 'center',
+    textDecoration: 'none',
+    fontWeight: 500
+  }}
+>
+  Suggest a listing 🌱
+</a>
 
           <p style={{
             fontSize: '12px',

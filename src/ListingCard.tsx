@@ -63,6 +63,19 @@ function ListingCard({ title, location, category, type, description, contact, im
       )}
       <h3>{title}</h3>
       <p className="location">{location}</p>
+      {image_url && (
+  <img
+    src={image_url}
+    alt={title}
+    style={{
+      width: '100%',
+      height: '200px',
+      objectFit: 'cover',
+      borderRadius: '8px',
+      marginBottom: '12px'
+    }}
+  />
+)}
     { created_at && (
       <p style={{
       fontSize: '12px',
