@@ -112,7 +112,6 @@ body {
   margin-bottom: 12px;
   border: 1px solid var(--border-light);
   transition: transform 0.2s ease, box-shadow 0.2s ease;
-  overflow-wrap: break-word;
 }
 
 .listing-card:hover {
@@ -144,6 +143,20 @@ body {
   display: flex;
   gap: 6px;
   flex-wrap: wrap;
+}
+
+.listing-card {
+  overflow-wrap: break-word;
+  word-break: break-word;
+}
+
+.badge,
+.filter-btn {
+  flex-shrink: 1;
+}
+
+.search-bar {
+  box-sizing: border-box;
 }
 
 .badge {
