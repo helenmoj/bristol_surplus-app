@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest'
-import { formatTimestamp, isRecent } from './date'
+import { formatTimestamp } from './date'
 
 describe('formatTimestamp', () => {
   it('returns "X hours ago" for timestamps within 24 hours', () => {
