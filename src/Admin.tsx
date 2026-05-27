@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { supabase } from './supabase'
+import imageCompression from 'browser-image-compression'
 
 function Admin() {
   const [title, setTitle] = useState('')
@@ -12,13 +13,42 @@ function Admin() {
   const [expiryDays, setExpiryDays] = useState('30')
   const [imageFile, setImageFile] = useState<File | null>(null)
   const [uploading, setUploading] = useState(false)
+  const [compressionMessage, setCompressionMessage] = useState('')
 
   const categories = ['Veg', 'Fruit', 'Preserves', 'Garden', 'Other']
   const types = ['Free', 'Swap', 'Wanted', '£']
 
-  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleImageChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
-      setImageFile(e.target.files[0])
+      const file = e.target.files[0]
+      const originalSize = (file.size / 1024 / 1024).toFixed(2)
+      
+      // Check file size first
+      if (file.size > 5000000) { // 5MB max before compression
+        setCompressionMessage(`Large file detected (${originalSize}MB), compressing...`)
+      }
+      
+      try {
+        // Compress the image
+        const options = {
+          maxSizeMB: 1,           // Max 1MB after compression
+          maxWidthOrHeight: 1920, // Max width/height 1920px
+          useWebWorker: true
+        }
+        
+        const compressedFile = await imageCompression(file, options)
+        
+        // Show compression result
+        const compressedSize = (compressedFile.size / 1024 / 1024).toFixed(2)
+        console.log(`✅ Compressed: ${originalSize}MB → ${compressedSize}MB`)
+        setCompressionMessage(`✅ Compressed from ${originalSize}MB to ${compressedSize}MB`)
+        
+        setImageFile(compressedFile)
+      } catch (error) {
+        console.error('Compression error:', error)
+        setCompressionMessage('Could not compress, using original file')
+        setImageFile(file)
+      }
     }
   }
 
@@ -89,6 +119,10 @@ function Admin() {
         setDescription('')
         setContact('')
         setImageFile(null)
+        setCompressionMessage('')
+        
+        // Clear success message after 3 seconds
+        setTimeout(() => setSubmitted(false), 3000)
       }
     } catch (err) {
       console.error('Error:', err)
@@ -124,7 +158,7 @@ function Admin() {
           color: '#0F6E56',
           fontSize: '14px'
         }}>
-          Listing added successfully!
+          ✅ Listing added successfully!
         </div>
       )}
 
@@ -292,13 +326,26 @@ function Admin() {
           }}
         />
         {imageFile && (
-          <p style={{ 
-            marginTop: '8px', 
-            fontSize: '13px', 
-            color: '#666' 
-          }}>
-            Selected: {imageFile.name}
-          </p>
+          <div>
+            <p style={{ 
+              marginTop: '8px', 
+              fontSize: '13px', 
+              color: '#666',
+              fontWeight: 500
+            }}>
+              Selected: {imageFile.name} ({(imageFile.size / 1024 / 1024).toFixed(2)}MB)
+            </p>
+            {compressionMessage && (
+              <p style={{
+                marginTop: '6px',
+                fontSize: '12px',
+                color: compressionMessage.includes('✅') ? '#0F6E56' : '#FF9800',
+                fontStyle: 'italic'
+              }}>
+                {compressionMessage}
+              </p>
+            )}
+          </div>
         )}
       </div>
 
