@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import ListingCard from './ListingCard'
+import ListingCard from './components/ListingCard'
 import Admin from './Admin'
 import SuggestListing from './SuggestListing'
 import { supabase } from './supabase'
