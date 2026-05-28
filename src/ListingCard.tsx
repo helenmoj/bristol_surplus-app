@@ -6,8 +6,8 @@ type ListingProps = {
   category: string
   type: string
   description: string
-  contact?: string
-  image_url?: string  
+  contact?: string | null
+  image_url?: string | null
    created_at: string
 }
 
