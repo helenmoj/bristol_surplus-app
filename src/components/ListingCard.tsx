@@ -67,6 +67,7 @@ function ListingCard({ title, location, category, type, description, contact, im
   <img
     src={image_url}
     alt={title}
+    loading="lazy" 
     style={{
       width: '100%',
       height: '200px',
