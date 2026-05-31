@@ -11,6 +11,7 @@ const createMockListing = (overrides = {}) => ({
   description: 'Too many courgettes! Pick them up anytime.',
   contact: 'helen@example.com',
   image_url: null,
+  signed_url: undefined, 
   created_at: new Date().toISOString(),
   ...overrides
 })
@@ -123,7 +124,8 @@ describe('ListingCard Component', () => {
 
   it('should render image when image_url is provided', () => {
     const listing = createMockListing({ 
-      image_url: 'https://example.com/courgette.jpg'
+      image_url: 'path/in/bucket.jpg',
+      signed_url: 'https://example.com/courgette.jpg'
     })
     render(<ListingCard {...listing} />)
     
@@ -133,12 +135,15 @@ describe('ListingCard Component', () => {
   })
 
   it('should not render image when image_url is missing', () => {
-    const listing = createMockListing({ image_url: undefined })
-    render(<ListingCard {...listing} />)
-    
-    const image = screen.queryByAltText('Fresh courgettes')
-    expect(image).not.toBeInTheDocument()
+  const listing = createMockListing({ 
+    image_url: undefined,
+    signed_url: undefined
   })
+  render(<ListingCard {...listing} />)
+  
+  const image = screen.queryByAltText('Fresh courgettes')
+  expect(image).not.toBeInTheDocument()
+})
 
   // ===== TIMESTAMP TESTS =====
 
@@ -204,7 +209,8 @@ describe('ListingCard Component', () => {
       type: 'Free',
       description: 'Fresh bay leaves, cutting back tree',
       contact: '07410883889',
-      image_url: 'https://example.com/bay.jpg'
+      image_url: 'path/in/bucket.jpg',
+      signed_url: 'https://example.com/bay.jpg'
     })
     render(<ListingCard {...listing} />)
     
