@@ -8,6 +8,7 @@ type ListingProps = {
   description: string
   contact?: string | null
   image_url?: string | null
+  signed_url?: string | null 
    created_at: string
 }
 
@@ -38,7 +39,7 @@ function getTypeClass(type: string) {
   return 'badge-price'
 }
 
-function ListingCard({ title, location, category, type, description, contact, image_url,created_at }: ListingProps) {
+function ListingCard({ title, location, category, type, description, contact,  image_url, signed_url, created_at }: ListingProps) {
 
     const isNew = new Date(created_at) > new Date(Date.now() - 7 * 24 * 60 * 60 * 1000)
 
@@ -65,9 +66,9 @@ function ListingCard({ title, location, category, type, description, contact, im
       <p className="location">{location}</p>
       {image_url && (
   <img
-    src={image_url}
-    alt={title}
-    loading="lazy" 
+  src={signed_url ?? ""}
+  alt={title}
+  loading="lazy"
     style={{
       width: '100%',
       height: '200px',

@@ -33,19 +33,39 @@ function App() {
   }, [])
 
   async function fetchListings() {
-    const { data, error } = await supabase
-      .from('listings')
-      .select('*')
-      .gt('expires_at', new Date().toISOString())
-      .order('created_at', { ascending: false })
+  const { data, error } = await supabase
+    .from('listings')
+    .select('*')
+    .gt('expires_at', new Date().toISOString())
+    .order('created_at', { ascending: false })
 
-    if (error) {
-      console.error('Error fetching listings:', error)
-    } else {
-      setListings(data || [])
-    }
+  if (error) {
+    console.error('Error fetching listings:', error)
     setLoading(false)
+    return
   }
+
+  // Generate signed URLs for each listing with an image
+  const listingsWithSignedUrls = await Promise.all(
+    (data || []).map(async (listing) => {
+      if (!listing.image_url) return listing
+
+      const { data: signed } = await supabase
+        .storage
+        .from('your-bucket-name')   // ← replace with your bucket
+        .createSignedUrl(listing.image_url, 60 * 60) // 1 hour
+
+      return {
+        ...listing,
+        signed_url: signed?.signedUrl
+      }
+    })
+  )
+
+  setListings(listingsWithSignedUrls)
+  setLoading(false)
+}
+
 
   // Route flags (must appear once)
   const isAdmin = window.location.search.includes('admin=true')
