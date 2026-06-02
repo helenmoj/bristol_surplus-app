@@ -15,6 +15,7 @@ type Listing = {
   description: string
   contact?: string
   image_url?: string
+  signed_url?: string
   created_at: string
 }
 
@@ -52,7 +53,7 @@ function App() {
 
       const { data: signed } = await supabase
         .storage
-        .from('your-bucket-name')   // ← replace with your bucket
+        .from('listing-images')  
         .createSignedUrl(listing.image_url, 60 * 60) // 1 hour
 
       return {
@@ -189,6 +190,7 @@ function App() {
                   description={listing.description}
                   contact={listing.contact}
                   image_url={listing.image_url}
+                  signed_url={listing.signed_url} 
                   created_at={listing.created_at}  
                 />
               ))
