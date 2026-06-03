@@ -122,7 +122,7 @@ describe('ListingCard Component', () => {
 
   // ===== IMAGE TESTS =====
 
-  it('should render image when image_url is provided', () => {
+  it('should render image when signed_url is provided', () => {
     const listing = createMockListing({ 
       image_url: 'path/in/bucket.jpg',
       signed_url: 'https://example.com/courgette.jpg'
@@ -134,7 +134,7 @@ describe('ListingCard Component', () => {
     expect(image.src).toBe('https://example.com/courgette.jpg')
   })
 
-  it('should not render image when image_url is missing', () => {
+  it('should not render image when signed_url is missing', () => {
   const listing = createMockListing({ 
     image_url: undefined,
     signed_url: undefined

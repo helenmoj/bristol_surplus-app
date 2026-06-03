@@ -31,7 +31,7 @@ function Admin() {
       try {
         // Compress the image
         const options = {
-          maxSizeMB: 1,           // Max 1MB after compression
+          maxSizeMB: 0.5,           // Max 1MB after compression
           maxWidthOrHeight: 1920, // Max width/height 1920px
           useWebWorker: true
         }
@@ -79,14 +79,9 @@ function Admin() {
           return
         }
 
-        if (uploadData) {
-          const { data: urlData } = supabase.storage
-            .from('listing-images')
-            .getPublicUrl(uploadData.path)
-          
-          imageUrl = urlData.publicUrl
-        }
-      }
+       if (uploadData) {
+  imageUrl = uploadData.path   
+}
 
       // Calculate expiry date
       const expiryDate = new Date()
