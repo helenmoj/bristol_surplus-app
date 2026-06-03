@@ -81,7 +81,8 @@ function Admin() {
 
        if (uploadData) {
   imageUrl = uploadData.path   
-}
+  }
+  }   
 
       // Calculate expiry date
       const expiryDate = new Date()
