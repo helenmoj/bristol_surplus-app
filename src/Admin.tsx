@@ -90,18 +90,18 @@ function Admin() {
 
       // Insert listing with image URL
       const { error } = await supabase
-        .from('listings')
-        .insert([{
-          title,
-          location,
-          category,
-          type,
-          description,
-          contact,
-          image_url: imageUrl,
-          created_at: new Date().toISOString(),
-          expires_at: expiryDate.toISOString()
-        }])
+  .from('listings')
+  .insert([{
+    title,
+    location,
+    category,
+    type,
+    description,
+    contact,
+    image_url: imageUrl,
+    created_at: new Date().toISOString(),
+    expires_at: expiryDate.toISOString()
+  }])
 
       if (error) {
         console.error('Error adding listing:', error)

@@ -7,8 +7,9 @@ type ListingProps = {
   type: string
   description: string
   contact?: string | null
-  signed_url?: string | null 
-   created_at: string
+  image_url?: string | null
+  signed_url?: string | null
+  created_at: string
 }
 
 function getCategoryClass(category: string) {
