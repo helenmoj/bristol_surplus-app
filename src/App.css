@@ -304,3 +304,15 @@ body {
   color: #3D3D3D;
   margin-top: 4px;
 }
+
+.suggest-wrapper {
+  background: #DFF3EA;
+  min-height: 100vh;
+  padding: 24px 16px;
+}
+
+suggest-green {
+  background: #F0FAF6; /* soft green tint */
+  min-height: 100vh;
+}
+

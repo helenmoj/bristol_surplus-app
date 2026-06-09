@@ -97,13 +97,15 @@ function App() {
 
       {isAdmin ? (
         <Admin />
-      ) : isSuggest ? (
-        <SuggestListing />
-      ) : (
+    ) : isSuggest ? (
+  <div className="suggest-wrapper">
+    <SuggestListing />
+  </div>
+) : (
         <>
           <CookieBanner />
 
-    <div className="header">
+   <div className="header">
   <div className="header-inner">
     <div className="logo-wrap">
       <svg
@@ -121,12 +123,7 @@ function App() {
       </svg>
       <h1 className="logo">Bristol Larder</h1>
     </div>
-
-    <nav className="nav-links">
-      <a href="/" className="nav-link">Listings</a>
-      <a href="/?suggest=true" className="nav-link suggest">Suggest a listing</a>
-    </nav>
-  </div>
+</div>
 
   <p className="tagline">Connecting Bristol growers and makers</p>
 </div>
