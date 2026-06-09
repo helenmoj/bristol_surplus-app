@@ -139,7 +139,7 @@ function App() {
 
   <div className="hero-buttons">
     <a href="/" className="hero-btn primary">Browse listings</a>
-    <a href="/?suggest=true" className="hero-btn secondary">Suggest a listing</a>
+    <a href="/?suggest=true" className="hero-btn primary">Suggest a listing</a>
   </div>
 
   <p className="hero-subtext">Free to use. Community‑run. Made in Bristol.</p>
