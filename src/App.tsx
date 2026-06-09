@@ -104,9 +104,49 @@ function App() {
           <CookieBanner />
 
     <div className="header">
-          <h1>Bristol Larder</h1>
-          <p>Connecting Bristol growers and makers</p>
-        </div>
+  <div className="header-inner">
+    <div className="logo-wrap">
+      <svg
+        className="leaf-icon"
+        width="20"
+        height="20"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="#1D9E75"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      >
+        <path d="M5 21c14 0 14-16 14-16s-6 0-10 4-4 12-4 12z" />
+      </svg>
+      <h1 className="logo">Bristol Larder</h1>
+    </div>
+
+    <nav className="nav-links">
+      <a href="/" className="nav-link">Listings</a>
+      <a href="/?suggest=true" className="nav-link suggest">Suggest a listing</a>
+    </nav>
+  </div>
+
+  <p className="tagline">Connecting Bristol growers and makers</p>
+</div>
+
+        <div className="hero">
+  <h2>Share what you have. Find what you need.</h2>
+
+  <p>
+    Bristol Larder helps neighbours share surplus food, plants, seeds and garden gear. 
+    Whether you’ve grown too much, made too much, or simply have something spare — 
+    someone nearby can use it.
+  </p>
+
+  <div className="hero-buttons">
+    <a href="/" className="hero-btn primary">Browse listings</a>
+    <a href="/?suggest=true" className="hero-btn secondary">Suggest a listing</a>
+  </div>
+
+  <p className="hero-subtext">Free to use. Community‑run. Made in Bristol.</p>
+</div>
         
           <div className="main">
             <input

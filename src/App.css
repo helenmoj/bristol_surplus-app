@@ -28,24 +28,6 @@ body {
   padding-bottom: 40px;
 }
 
-.header {
-  background-color: var(--brand-green);
-  padding: 24px 20px;
-  margin-bottom: 24px;
-}
-
-.header h1 {
-  color: white;
-  font-size: 26px;
-  font-weight: 600;
-  margin-bottom: 4px;
-}
-
-.header p {
-  color: rgba(255,255,255,0.8);
-  font-size: 14px;
-}
-
 .main {
   padding: 0 16px;
 }
@@ -208,4 +190,117 @@ body {
   padding: 30px 20px 0;
   color: var(--text-faint);
   font-size: 12px;
+}
+
+.hero {
+  background: #F7F7F7;
+  padding: 32px 20px;
+  border-radius: 12px;
+  margin: 0 0 24px 0;
+  text-align: center;
+  border: 1px solid #E0E0E0;
+}
+
+.hero h2 {
+  font-size: 20px;
+  margin-bottom: 12px;
+  color: #1A1A1A;
+  font-weight: 600;
+}
+
+.hero p {
+  font-size: 14px;
+  line-height: 1.6;
+  color: #3D3D3D;
+  margin-bottom: 16px;
+}
+
+.hero-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.hero-btn {
+  padding: 10px 18px;
+  border-radius: 8px;
+  font-size: 14px;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.hero-btn.primary {
+  background-color: #1D9E75;
+  color: white;
+}
+
+.hero-btn.secondary {
+  background-color: white;
+  border: 1px solid #1D9E75;
+  color: #1D9E75;
+}
+
+.hero-subtext {
+  font-size: 12px;
+  color: #6E6E6E;
+}
+
+/* HEADER */
+.header {
+  background: white;
+  padding: 20px 20px 10px;
+  text-align: center;
+}
+
+
+.header-inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 6px;
+}
+
+.logo-wrap {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.leaf-icon {
+  margin-top: 2px;
+}
+
+.logo {
+  font-size: 22px;
+  font-weight: 700;
+  color: #1A1A1A;
+  margin: 0;
+}
+
+.nav-links {
+  display: flex;
+  gap: 12px;
+}
+
+.nav-link {
+  font-size: 14px;
+  color: #1A1A1A;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.nav-link:hover {
+  text-decoration: underline;
+}
+
+.nav-link.suggest {
+  color: #1D9E75;
+  font-weight: 600;
+}
+
+.tagline {
+  font-size: 14px;
+  color: #3D3D3D;
+  margin-top: 4px;
 }
