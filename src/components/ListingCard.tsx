@@ -110,7 +110,7 @@ function ListingCard({ title, location, category, type, description, contact, si
   }}>
     <p style={{
       fontSize: '11px',
-      color: '#888',
+      color: '#4B5563',
       marginBottom: '4px',
       textTransform: 'uppercase',
       letterSpacing: '0.5px',

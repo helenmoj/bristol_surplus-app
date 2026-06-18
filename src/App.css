@@ -248,7 +248,7 @@ body {
 
 /* HEADER */
 .header {
-  background: white;
+  background: transparent;
   padding: 20px 20px 10px;
   text-align: center;
 }
@@ -306,12 +306,12 @@ body {
 }
 
 .suggest-wrapper {
-  background: #DFF3EA;
+  background: #f4f4f0;
   min-height: 100vh;
   padding: 24px 16px;
 }
 
-suggest-green {
+.suggest-green {
   background: #F0FAF6; /* soft green tint */
   min-height: 100vh;
 }
