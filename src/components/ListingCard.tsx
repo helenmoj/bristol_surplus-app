@@ -10,6 +10,7 @@ type ListingProps = {
   image_url?: string | null
   signed_url?: string | null
   created_at: string
+  listing_type?: string  // Add this line
 }
 
 function getCategoryClass(category: string) {
@@ -39,31 +40,62 @@ function getTypeClass(type: string) {
   return 'badge-price'
 }
 
-function ListingCard({ title, location, category, type, description, contact, signed_url, created_at }: ListingProps) {
-
+function ListingCard({ title, location, category, type, description, contact, signed_url, created_at, listing_type }: ListingProps) {
     const isNew = new Date(created_at) > new Date(Date.now() - 7 * 24 * 60 * 60 * 1000)
-
   return (
     <div className="listing-card" style={{ position: 'relative' }}>
       {isNew && (
-        <div style={{
-          position: 'absolute',
-          top: '12px',
-          right: '12px',
-          backgroundColor: '#1D9E75',
-          color: 'white',
-          padding: '4px 10px',
-          borderRadius: '12px',
-          fontSize: '11px',
-          fontWeight: 600,
-          textTransform: 'uppercase',
-          letterSpacing: '0.5px'
+  <div
+    className="new-badge"
+    style={{
+      position: 'absolute',
+      top: '12px',
+      right: '12px',
+      backgroundColor: '#1D9E75',
+      color: 'white',
+      padding: '4px 10px',
+      borderRadius: '12px',
+      fontSize: '11px',
+      fontWeight: 600,
+      textTransform: 'uppercase',
+      letterSpacing: '0.5px'
         }}>
           New
         </div>
       )}
       <h3>{title}</h3>
       <p className="location">{location}</p>
+
+      {/* ADD THIS SECTION - listing_type badges */}
+      {listing_type === 'wanted' && (
+        <span style={{
+          display: 'inline-block',
+          backgroundColor: '#fef3c7',
+          color: '#92400e',
+          padding: '4px 8px',
+          borderRadius: '4px',
+          fontSize: '12px',
+          marginBottom: '8px'
+        }}>
+          🔍 Looking for this
+        </span>
+      )}
+
+      {listing_type === 'offering' && (
+        <span style={{
+          display: 'inline-block',
+          backgroundColor: '#dcfce7',
+          color: '#166534',
+          padding: '4px 8px',
+          borderRadius: '4px',
+          fontSize: '12px',
+          marginBottom: '8px'
+        }}>
+          ✓ Available now
+        </span>
+      )}
+      {/* END OF NEW SECTION */}
+
      {signed_url && (
   <img
     src={signed_url}

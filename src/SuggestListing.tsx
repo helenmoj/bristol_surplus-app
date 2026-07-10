@@ -246,32 +246,46 @@ function SuggestListing() {
             </select>
           </div>
 
-          <div style={{ marginBottom: '14px' }}>
+           <div style={{ marginBottom: '14px' }}>
             <label style={{
               fontSize: '13px',
               color: '#444',
               display: 'block',
               marginBottom: '6px'
             }}>
-              Tell us more
+              What type of listing?
             </label>
-            <textarea
-              name="description"
-              required
-              placeholder="How much do you have? Any collection details? What would you swap for?"
-              rows={4}
-              style={{
-                width: '100%',
-                padding: '10px 14px',
-                borderRadius: '8px',
-                border: '1px solid #ddd',
-                fontSize: '14px',
-                outline: 'none',
-                resize: 'vertical' as const,
-                fontFamily: 'inherit',
-                color: '#333'
-              }}
-            />
+            <div style={{ display: 'flex', gap: '16px' }}>
+              <label style={{ 
+                display: 'flex', 
+                alignItems: 'center', 
+                gap: '6px',
+                fontSize: '13px',
+                color: '#444'
+              }}>
+                <input 
+                  type="radio" 
+                  name="listing_type" 
+                  value="offering" 
+                  defaultChecked 
+                />
+                I have this (offering)
+              </label>
+              <label style={{ 
+                display: 'flex', 
+                alignItems: 'center', 
+                gap: '6px',
+                fontSize: '13px',
+                color: '#444'
+              }}>
+                <input 
+                  type="radio" 
+                  name="listing_type" 
+                  value="wanted" 
+                />
+                I'm looking for this (wanted)
+              </label>
+            </div>
           </div>
 
           <div style={{ marginBottom: '14px' }}>
