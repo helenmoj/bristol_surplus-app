@@ -19,7 +19,7 @@ type Listing = {
   created_at: string
 }
 
-const categories = ['All', 'Veg', 'Fruit', 'Preserves', 'Garden']
+const categories = ['All', 'Veg', 'Fruit', 'Preserves', 'Garden', 'Other']
 
 function App() {
   const [activeCategory, setActiveCategory] = useState('All')
