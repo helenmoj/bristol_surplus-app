@@ -3,7 +3,9 @@ import ListingCard from './components/ListingCard'
 import Admin from './Admin'
 import SuggestListing from './SuggestListing'
 import { supabase } from './supabase'
-import CookieBanner from './CookieNotice';
+import CookieBanner from './CookieNotice'
+import { RecipeGallery } from './components/RecipeGallery'
+import { RecipeForm } from './components/RecipeForm'
 import './App.css'
 
 type Listing = {
@@ -27,6 +29,10 @@ function App() {
   const [listings, setListings] = useState<Listing[]>([])
   const [loading, setLoading] = useState(true)
   const [showAbout, setShowAbout] = useState(false)
+
+  //  detect ?recipes=true in the URL
+  const isRecipes =
+    new URLSearchParams(window.location.search).get('recipes') === 'true'
 
   // Fetch listings
   useEffect(() => {
@@ -92,16 +98,24 @@ function App() {
       listing.title.toLowerCase().includes(searchTerm.toLowerCase())
     )
 
-  return (
-    <div className="app">
+ return (
+  <div className="app">
 
-      {isAdmin ? (
-        <Admin />
+    {isAdmin ? (
+      <Admin />
+
     ) : isSuggest ? (
-  <div className="suggest-wrapper">
-    <SuggestListing />
-  </div>
-) : (
+      <div className="suggest-wrapper">
+        <SuggestListing />
+      </div>
+
+    ) : isRecipes ? (
+      <>
+        <RecipeForm />
+        <RecipeGallery />
+      </>
+      
+    ) : (
         <>
           <CookieBanner />
 
@@ -137,10 +151,11 @@ function App() {
     someone nearby can use it.
   </p>
 
-  <div className="hero-buttons">
-    <a href="/" className="hero-btn primary">Browse listings</a>
-    <a href="/?suggest=true" className="hero-btn primary">Suggest a listing</a>
-  </div>
+ <div className="hero-buttons">
+  <a href="/" className="hero-btn primary">Browse listings</a>
+  <a href="/?suggest=true" className="hero-btn primary">Suggest a listing</a>
+  <a href="/?recipes=true" className="hero-btn primary">Recipes 🥘</a>
+</div>
 
   <p className="hero-subtext">Free to use. Community‑run. Made in Bristol.</p>
 </div>

@@ -114,6 +114,13 @@ body {
   margin-bottom: 8px;
 }
 
+.recipe-back-wrapper {
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 0 16px 12px; /* aligns with .main spacing */
+}
+
+
 .listing-card .description {
   font-size: 13px;
   color: var(--text-muted);
@@ -316,3 +323,133 @@ body {
   min-height: 100vh;
 }
 
+.recipe-gallery {
+  padding: 20px;
+  margin: 20px 0;
+}
+
+.recipe-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 16px;
+  margin-top: 16px;
+}
+
+.recipe-card {
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  padding: 16px;
+  background: #fafafa;
+}
+
+.recipe-card h3 {
+  margin: 0 0 8px 0;
+  font-size: 18px;
+}
+
+.ingredient-tag {
+  background: #dbeafe;
+  color: #1e40af;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 13px;
+  margin: 8px 0;
+  display: inline-block;
+}
+
+.description {
+  font-size: 14px;
+  color: #666;
+  margin: 8px 0;
+}
+
+.instructions {
+  font-size: 13px;
+  color: #555;
+  font-style: italic;
+  margin: 8px 0;
+}
+
+.source {
+  font-size: 12px;
+  color: #999;
+  margin-top: 12px;
+}
+
+.recipe-form-container {
+  max-width: 500px;
+  margin: 20px auto;
+  padding: 20px;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  background: #fafafa;
+}
+
+.recipe-form-container form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.recipe-form-container input,
+.recipe-form-container select,
+.recipe-form-container textarea {
+  padding: 10px;
+  border: 1px solid #d1d5db;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+.recipe-form-container textarea {
+  resize: vertical;
+  min-height: 80px;
+}
+
+.recipe-form-container button {
+  background: #10b981;
+  color: white;
+  padding: 10px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.recipe-form-container button:hover {
+  background: #059669;
+}
+
+.message {
+  margin-top: 12px;
+  padding: 12px;
+  background: #dcfce7;
+  color: #166534;
+  border-radius: 4px;
+  text-align: center;
+}
+
+.recipe-gallery-container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.back-button {
+  background-color: #1D9E75;
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-size: 14px;
+  cursor: pointer;
+  margin-bottom: 1rem;
+}
+
+.back-button:hover {
+  opacity: 0.9;
+}
+
+.recipes-page-wrapper {
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 20px 16px 0; /* same spacing as .main */
+}
