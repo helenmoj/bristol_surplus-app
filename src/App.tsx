@@ -30,9 +30,10 @@ function App() {
   const [loading, setLoading] = useState(true)
   const [showAbout, setShowAbout] = useState(false)
 
-  //  detect ?recipes=true in the URL
-  const isRecipes =
-    new URLSearchParams(window.location.search).get('recipes') === 'true'
+  // Detect ?recipes=true, ?admin=true, ?suggest=true in the URL
+  const isRecipes = new URLSearchParams(window.location.search).get('recipes') === 'true'
+  const isAdmin = window.location.search.includes('admin=true')
+  const isSuggest = window.location.search.includes('suggest=true')
 
   // Fetch listings
   useEffect(() => {
@@ -40,43 +41,38 @@ function App() {
   }, [])
 
   async function fetchListings() {
-  const { data, error } = await supabase
-    .from('listings')
-    .select('*')
-    .gt('expires_at', new Date().toISOString())
-    .order('created_at', { ascending: false })
+    const { data, error } = await supabase
+      .from('listings')
+      .select('*')
+      .gt('expires_at', new Date().toISOString())
+      .order('created_at', { ascending: false })
 
-  if (error) {
-    console.error('Error fetching listings:', error)
+    if (error) {
+      console.error('Error fetching listings:', error)
+      setLoading(false)
+      return
+    }
+
+    // Generate signed URLs for each listing with an image
+    const listingsWithSignedUrls = await Promise.all(
+      (data || []).map(async (listing) => {
+        if (!listing.image_url) return listing
+
+        const { data: signed } = await supabase
+          .storage
+          .from('listing-images')
+          .createSignedUrl(listing.image_url, 60 * 60) // 1 hour
+
+        return {
+          ...listing,
+          signed_url: signed?.signedUrl
+        }
+      })
+    )
+
+    setListings(listingsWithSignedUrls)
     setLoading(false)
-    return
   }
-
-  // Generate signed URLs for each listing with an image
-  const listingsWithSignedUrls = await Promise.all(
-    (data || []).map(async (listing) => {
-      if (!listing.image_url) return listing
-
-      const { data: signed } = await supabase
-        .storage
-        .from('listing-images')  
-        .createSignedUrl(listing.image_url, 60 * 60) // 1 hour
-
-      return {
-        ...listing,
-        signed_url: signed?.signedUrl
-      }
-    })
-  )
-
-  setListings(listingsWithSignedUrls)
-  setLoading(false)
-}
-
-
-  // Route flags (must appear once)
-  const isAdmin = window.location.search.includes('admin=true')
-  const isSuggest = window.location.search.includes('suggest=true')
 
   // Page titles
   useEffect(() => {
@@ -84,10 +80,12 @@ function App() {
       document.title = "Admin – Bristol Larder"
     } else if (isSuggest) {
       document.title = "Suggest a Listing – Bristol Larder"
+    } else if (isRecipes) {
+      document.title = "Recipes – Bristol Larder"
     } else {
       document.title = "Bristol Larder – Home"
     }
-  }, [isAdmin, isSuggest])
+  }, [isAdmin, isSuggest, isRecipes])
 
   // Filter listings
   const filteredListings = listings
@@ -98,68 +96,68 @@ function App() {
       listing.title.toLowerCase().includes(searchTerm.toLowerCase())
     )
 
- return (
-  <div className="app">
+  return (
+    <div className="app">
 
-    {isAdmin ? (
-      <Admin />
+      {isAdmin ? (
+        <Admin />
 
-    ) : isSuggest ? (
-      <div className="suggest-wrapper">
-        <SuggestListing />
-      </div>
+      ) : isSuggest ? (
+        <div className="suggest-wrapper">
+          <SuggestListing />
+        </div>
 
-    ) : isRecipes ? (
-      <>
-        <RecipeForm />
-        <RecipeGallery />
-      </>
-      
-    ) : (
+      ) : isRecipes ? (
+        <>
+          <RecipeForm />
+          <RecipeGallery />
+        </>
+
+      ) : (
         <>
           <CookieBanner />
 
-   <div className="header">
-  <div className="header-inner">
-    <div className="logo-wrap">
-      <svg
-        className="leaf-icon"
-        width="20"
-        height="20"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="#1D9E75"
-        strokeWidth="2"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      >
-        <path d="M5 21c14 0 14-16 14-16s-6 0-10 4-4 12-4 12z" />
-      </svg>
-      <h1 className="logo">Bristol Larder</h1>
-    </div>
-</div>
+          <div className="header">
+            <div className="header-inner">
+              <div className="logo-wrap">
+                <svg
+                  className="leaf-icon"
+                  width="20"
+                  height="20"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="#1D9E75"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <path d="M5 21c14 0 14-16 14-16s-6 0-10 4-4 12-4 12z" />
+                </svg>
+                <h1 className="logo">Bristol Larder</h1>
+              </div>
+            </div>
+          </div>
 
-  <p className="tagline">Connecting Bristol growers and makers</p>
-</div>
+          <p className="tagline">Connecting Bristol growers and makers</p>
 
-        <div className="hero">
-  <h2>Share what you have. Find what you need.</h2>
+          <div className="hero">
+            <h2>Share what you have. Find what you need.</h2>
 
-  <p>
-    Bristol Larder helps neighbours share surplus food, plants, seeds and garden gear. 
-    Whether you’ve grown too much, made too much, or simply have something spare — 
-    someone nearby can use it.
-  </p>
+            <p>
+              Bristol Larder helps neighbours share surplus food, plants, seeds and garden gear.
+              Whether you've grown too much, made too much, or simply have something spare —
+              someone nearby can use it.
+            </p>
 
- <div className="hero-buttons">
-  <a href="/" className="hero-btn primary">Browse listings</a>
-  <a href="/?suggest=true" className="hero-btn primary">Suggest a listing</a>
-  <a href="/?recipes=true" className="hero-btn primary">Recipes 🥘</a>
-</div>
+            <div className="hero-buttons">
+              <a href="/" className="hero-btn primary">Browse listings</a>
+              <a href="/?suggest=true" className="hero-btn primary">Suggest a listing</a>
+              <a href="/?recipes=true" className="hero-btn primary">Recipes 🥘</a>
+            </div>
 
-  <p className="hero-subtext">Free to use. Community‑run. Made in Bristol.</p>
-</div>
-        
+            <p className="hero-subtext">Free to use. Community‑run. Made in Bristol.</p>
+          </div>
+
           <div className="main">
             <input
               type="text"
@@ -242,8 +240,8 @@ function App() {
                   description={listing.description}
                   contact={listing.contact}
                   image_url={listing.image_url}
-                  signed_url={listing.signed_url} 
-                  created_at={listing.created_at}  
+                  signed_url={listing.signed_url}
+                  created_at={listing.created_at}
                 />
               ))
             )}
