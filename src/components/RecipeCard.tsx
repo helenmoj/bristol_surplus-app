@@ -116,21 +116,24 @@ export function RecipeCard({ recipe }: { recipe: Recipe }) {
 
       {recipe.description && (
         <p style={{
-          fontSize: '14px',
-          color: '#555',
-          margin: '8px 0'
-        }}>
-          {recipe.description}
-        </p>
+  fontSize: '14px',
+  color: '#555',
+  margin: '8px 0',
+  whiteSpace: 'pre-wrap'
+}}>
+  {recipe.description}
+</p>
+
       )}
 
-      <p style={{
-        fontSize: '13px',
-        color: '#666',
-        margin: '8px 0'
-      }}>
-        <strong>How to make it:</strong> {recipe.instructions}
-      </p>
+     <p style={{
+  fontSize: '13px',
+  color: '#666',
+  margin: '8px 0',
+  whiteSpace: 'pre-wrap'
+}}>
+  <strong>How to make it:</strong> {recipe.instructions}
+</p>
 
       {recipe.source && (
         <p style={{
