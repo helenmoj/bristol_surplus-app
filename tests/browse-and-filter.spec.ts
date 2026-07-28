@@ -19,7 +19,7 @@ test.describe('Bristol Larder E2E Tests', () => {
     // Check first listing has required fields
     const firstCard = page.locator('[class*="listing-card"]').first()
     
-    await expect(firstCard.locator('h3')).toContainText('Loads of fresh mint')
+    await expect(firstCard.locator('h3')).toContainText('Sage (free)')
     await expect(firstCard.locator('[class*="location"]')).toContainText('BS7')
     await expect(firstCard.locator('span[class*="badge"]').first()).toContainText('Other')
   })
