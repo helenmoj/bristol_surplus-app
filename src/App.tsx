@@ -6,6 +6,7 @@ import { supabase } from './supabase'
 import CookieBanner from './CookieNotice'
 import { RecipeGallery } from './components/RecipeGallery'
 import { RecipeForm } from './components/RecipeForm'
+import { ActivityFeed } from './components/ActivityFeed'
 import './App.css'
 
 type Listing = {
@@ -159,7 +160,9 @@ function App() {
           </div>
 
           <div className="main">
-            <input
+  <ActivityFeed />
+  
+  <input
               type="text"
               placeholder="Search listings..."
               value={searchTerm}
